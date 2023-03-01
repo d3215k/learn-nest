@@ -33,7 +33,7 @@ export class User {
     );
   }
 
-  @Column()
+  @Column({ select: false })
   password: string;
 
   @OneToOne(() => Profile, (profile) => profile.user)

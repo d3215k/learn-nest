@@ -26,7 +26,7 @@ export class UserService {
   }
 
   findOne(id: number) {
-    // return this.usersRepository.find({
+    // return this.usersRepository.findOne({
     //   where: { id },
     //   relations: ['profile'],
     // });
@@ -39,7 +39,10 @@ export class UserService {
   }
 
   findByEmail(email: string): Promise<User> {
-    return this.usersRepository.findOneBy({ email });
+    return this.usersRepository.findOne({
+      where: { email },
+      select: ['id', 'email', 'password'],
+    });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
