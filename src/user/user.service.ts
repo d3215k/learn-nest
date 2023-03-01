@@ -24,8 +24,17 @@ export class UserService {
     return this.usersRepository.find();
   }
 
-  findOne(id: number): Promise<User> {
-    return this.usersRepository.findOneBy({ id });
+  findOne(id: number) {
+    // return this.usersRepository.find({
+    //   where: { id },
+    //   relations: ['profile'],
+    // });
+
+    return this.usersRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.profile', 'profile')
+      .where('user.id = :id', { id })
+      .getOne();
   }
 
   findByEmail(email: string): Promise<User> {

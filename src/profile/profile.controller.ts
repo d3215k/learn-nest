@@ -22,7 +22,7 @@ export class ProfileController {
     return this.profileService.create(createProfileDto);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   @Get()
   findAll() {
     return this.profileService.findAll();
