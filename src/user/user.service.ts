@@ -13,7 +13,8 @@ export class UserService {
   ) {}
 
   create(createUserDto: CreateUserDto) {
-    return this.usersRepository.save(createUserDto);
+    const entity = Object.assign(new User(), createUserDto);
+    return this.usersRepository.save(entity);
   }
 
   get(): Promise<User[]> {
