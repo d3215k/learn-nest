@@ -8,6 +8,8 @@ import { Profile } from './profile/entities/profile.entity';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ProfileModule } from './profile/profile.module';
+import { PostModule } from './post/post.module';
+import { Post } from './post/entities/post.entity';
 
 @Module({
   imports: [
@@ -19,12 +21,13 @@ import { ProfileModule } from './profile/profile.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
-      entities: [User, Profile],
+      entities: [User, Profile, Post],
       synchronize: true,
     }),
     UserModule,
     AuthModule,
     ProfileModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -6,11 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateProfileDto } from 'src/profile/dto/create-profile.dto';
+import { CreatePostDto } from 'src/post/dto/create-post.dto';
 
 @Controller('user')
 export class UserController {
@@ -23,10 +25,18 @@ export class UserController {
 
   @Post(':id/profile')
   createProfile(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body() createProfileDto: CreateProfileDto,
   ) {
     return this.userService.createProfile(id, createProfileDto);
+  }
+
+  @Post(':id/post')
+  createPost(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() createPostDto: CreatePostDto,
+  ) {
+    return this.userService.createPost(id, createPostDto);
   }
 
   @Get()

@@ -8,7 +8,9 @@ import {
   JoinColumn,
   Relation,
   BeforeInsert,
+  OneToMany,
 } from 'typeorm';
+import { Post } from 'src/post/entities/post.entity';
 
 @Entity()
 export class User {
@@ -38,4 +40,7 @@ export class User {
 
   @OneToOne(() => Profile, (profile) => profile.user)
   profile: Relation<Profile>;
+
+  @OneToMany(() => Post, (post) => post.user)
+  posts: Post[];
 }
