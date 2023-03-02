@@ -8,30 +8,29 @@ import { Profile } from './entities/profile.entity';
 @Injectable()
 export class ProfileService {
   constructor(
-    @InjectRepository(Profile)
-    private profilesRepository: Repository<Profile>,
+    @InjectRepository(Profile) private profileRepository: Repository<Profile>,
   ) {}
 
   create(createProfileDto: CreateProfileDto) {
-    return this.profilesRepository.save(createProfileDto);
+    return this.profileRepository.save(createProfileDto);
   }
 
   async findAll() {
     const [profiles, profilesCount] =
-      await this.profilesRepository.findAndCount();
+      await this.profileRepository.findAndCount();
 
     return { profiles, profilesCount };
   }
 
   findOne(id: number) {
-    return this.profilesRepository.findOneBy({ id });
+    return this.profileRepository.findOneBy({ id });
   }
 
   update(id: number, updateProfileDto: UpdateProfileDto) {
-    return this.profilesRepository.update(id, updateProfileDto);
+    return this.profileRepository.update(id, updateProfileDto);
   }
 
   remove(id: number) {
-    return this.profilesRepository.delete(id);
+    return this.profileRepository.delete(id);
   }
 }
