@@ -9,12 +9,4 @@ export class CreateProfileDto {
 
   @IsString()
   address: string;
-
-  city: string;
-
-  state: string;
-
-  country: string;
-
-  zip: string;
 }

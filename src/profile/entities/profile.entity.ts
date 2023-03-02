@@ -22,18 +22,6 @@ export class Profile {
   @Column('text')
   address: string;
 
-  @Column({ nullable: true })
-  city: string;
-
-  @Column({ nullable: true })
-  state: string;
-
-  @Column({ nullable: true })
-  country: string;
-
-  @Column({ nullable: true })
-  zip: string;
-
   @OneToOne(() => User, (user) => user.profile, { onDelete: 'CASCADE' })
   @JoinColumn()
   user: Relation<User>;
