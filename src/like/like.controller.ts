@@ -32,7 +32,7 @@ export class LikeController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateLikeDto: UpdateLikeDto) {
-    return this.likeService.update(+id, updateLikeDto);
+    // return this.likeService.update(+id, updateLikeDto);
   }
 
   @Delete(':id')

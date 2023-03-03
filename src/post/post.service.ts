@@ -25,7 +25,24 @@ export class PostService {
   }
 
   findAll() {
-    return this.postRepository.find({ relations: ['user', 'tags'] });
+    return this.postRepository.find({
+      select: {
+        id: true,
+        title: true,
+        body: true,
+        createdAt: true,
+        updatedAt: true,
+        user: {
+          id: true,
+          name: true,
+        },
+        tags: {
+          id: true,
+          name: true,
+        },
+      },
+      relations: ['user', 'tags'],
+    });
   }
 
   findByUser(userId: number) {
@@ -36,7 +53,35 @@ export class PostService {
   }
 
   findOne(id: number) {
-    return this.postRepository.findOneBy({ id });
+    return this.postRepository.findOne({
+      where: { id },
+      select: {
+        id: true,
+        title: true,
+        body: true,
+        createdAt: true,
+        updatedAt: true,
+        user: {
+          id: true,
+          name: true,
+        },
+        tags: {
+          id: true,
+          name: true,
+        },
+        comments: {
+          id: true,
+          body: true,
+          createdAt: true,
+          updatedAt: true,
+          user: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+      relations: ['user', 'tags', 'comments', 'comments.user'],
+    });
   }
 
   async update(id: number, postParams) {

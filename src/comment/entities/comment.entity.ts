@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -26,15 +27,15 @@ export class Comment {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToOne(() => User, (user) => user.comments, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, (user) => user.comments, { onDelete: 'CASCADE' })
   @JoinColumn()
   user: Relation<User>;
 
-  @OneToOne(() => Post, (post) => post.comments, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Post, (post) => post.comments, { onDelete: 'CASCADE' })
   @JoinColumn()
   post: Relation<Post>;
 
-  @OneToOne(() => Comment, (comment) => comment.replies, {
+  @ManyToOne(() => Comment, (comment) => comment.replies, {
     onDelete: 'CASCADE',
   })
   @JoinColumn()

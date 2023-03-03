@@ -28,6 +28,7 @@ import { Like } from './like/entities/like.entity';
       database: process.env.DB_NAME,
       entities: [User, Profile, Post, Tag, Comment, Like],
       synchronize: true,
+      logging: true,
     }),
     UserModule,
     AuthModule,
