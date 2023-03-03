@@ -1,28 +1,23 @@
-import { Tag } from 'src/tag/entities/tag.entity';
-import { User } from 'src/user/entities/user.entity';
 import {
   BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
-export class Post {
+export class Tag {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  title: string;
+  @Column({ length: 50 })
+  name: string;
 
   @BeforeInsert()
   async slugify() {
-    this.slug = this.title
+    this.slug = this.name
       .toLowerCase()
       .replace(/ /g, '-')
       .replace(/[^\w-]+/g, '');
@@ -31,19 +26,9 @@ export class Post {
   @Column()
   slug: string;
 
-  @Column()
-  body: string;
-
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
-
-  @ManyToOne(() => User, (user) => user.posts)
-  user: User;
-
-  @ManyToMany(() => Tag)
-  @JoinTable()
-  tags: Tag[];
 }

@@ -7,13 +7,15 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateProfileDto } from 'src/profile/dto/create-profile.dto';
-import { CreatePostDto } from 'src/post/dto/create-post.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -31,13 +33,13 @@ export class UserController {
     return this.userService.createProfile(id, createProfileDto);
   }
 
-  @Post(':id/post')
-  createPost(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() createPostDto: CreatePostDto,
-  ) {
-    return this.userService.createPost(id, createPostDto);
-  }
+  // @Post(':id/post')
+  // createPost(
+  //   @Param('id', ParseIntPipe) id: number,
+  //   @Body() createPostDto: CreatePostDto,
+  // ) {
+  //   return this.userService.createPost(id, createPostDto);
+  // }
 
   @Get()
   findAll() {

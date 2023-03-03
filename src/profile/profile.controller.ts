@@ -6,23 +6,24 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('profile')
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createProfileDto: CreateProfileDto) {
-    return this.profileService.create(createProfileDto);
+  create(@Body() createProfileDto: CreateProfileDto, @Request() req: any) {
+    return this.profileService.create(createProfileDto, req.user);
   }
 
-  // @UseGuards(AuthGuard('jwt'))
   @Get()
   findAll() {
     return this.profileService.findAll();
