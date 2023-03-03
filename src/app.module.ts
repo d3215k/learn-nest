@@ -12,7 +12,9 @@ import { Post } from './post/entities/post.entity';
 import { TagModule } from './tag/tag.module';
 import { Tag } from './tag/entities/tag.entity';
 import { CommentModule } from './comment/comment.module';
+import { Comment } from './comment/entities/comment.entity';
 import { LikeModule } from './like/like.module';
+import { Like } from './like/entities/like.entity';
 
 @Module({
   imports: [
@@ -24,7 +26,7 @@ import { LikeModule } from './like/like.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
-      entities: [User, Profile, Post, Tag],
+      entities: [User, Profile, Post, Tag, Comment, Like],
       synchronize: true,
     }),
     UserModule,

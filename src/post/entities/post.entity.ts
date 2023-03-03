@@ -1,5 +1,6 @@
 import { Tag } from 'src/tag/entities/tag.entity';
 import { User } from 'src/user/entities/user.entity';
+import { Comment } from 'src/comment/entities/comment.entity';
 import {
   BeforeInsert,
   Column,
@@ -8,9 +9,11 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Like } from 'src/like/entities/like.entity';
 
 @Entity()
 export class Post {
@@ -46,4 +49,10 @@ export class Post {
   @ManyToMany(() => Tag)
   @JoinTable()
   tags: Tag[];
+
+  @OneToMany(() => Comment, (comment) => comment.post)
+  comments: Comment[];
+
+  @OneToMany(() => Like, (like) => like.post)
+  likes: Like[];
 }
