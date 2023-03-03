@@ -34,19 +34,24 @@ export class PostController {
     return this.postService.findAll();
   }
 
+  @Get(':userId/user')
+  findByUser(@Param('userId') userId: number) {
+    return this.postService.findByUser(userId);
+  }
+
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.postService.findOne(+id);
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
+  async update(@Param('id') id: number, @Body() updatePostDto: UpdatePostDto) {
     const postParams = { title: updatePostDto.title, body: updatePostDto.body };
     return this.postService.update(+id, postParams);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.postService.remove(+id);
   }
 }

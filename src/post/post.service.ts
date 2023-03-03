@@ -28,6 +28,13 @@ export class PostService {
     return this.postRepository.find({ relations: ['user', 'tags'] });
   }
 
+  findByUser(userId: number) {
+    return this.postRepository.find({
+      where: { user: { id: userId } },
+      relations: ['user', 'tags'],
+    });
+  }
+
   findOne(id: number) {
     return this.postRepository.findOneBy({ id });
   }
