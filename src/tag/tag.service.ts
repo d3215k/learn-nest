@@ -24,7 +24,7 @@ export class TagService {
   }
 
   findOne(id: number) {
-    return this.tagRepository.findOneBy({ id });
+    return this.tagRepository.findOne({ where: { id }, relations: [] });
   }
 
   update(id: number, updateTagDto: UpdateTagDto) {

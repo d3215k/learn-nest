@@ -12,6 +12,7 @@ import { Post } from './post/entities/post.entity';
 import { TagModule } from './tag/tag.module';
 import { Tag } from './tag/entities/tag.entity';
 import { CommentModule } from './comment/comment.module';
+import { LikeModule } from './like/like.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { CommentModule } from './comment/comment.module';
     PostModule,
     TagModule,
     CommentModule,
+    LikeModule,
   ],
   controllers: [AppController],
 })
