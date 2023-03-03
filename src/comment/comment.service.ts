@@ -57,7 +57,7 @@ export class CommentService {
   findOne(id: number) {
     return this.commentRepository.findOne({
       where: { id },
-      relations: ['user', 'post'],
+      relations: ['user', 'post', 'replies', 'replies.user'],
       select: {
         id: true,
         body: true,
@@ -70,6 +70,16 @@ export class CommentService {
         post: {
           id: true,
           title: true,
+        },
+        replies: {
+          id: true,
+          body: true,
+          createdAt: true,
+          updatedAt: true,
+          user: {
+            id: true,
+            name: true,
+          },
         },
       },
     });
