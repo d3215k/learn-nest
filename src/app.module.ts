@@ -18,6 +18,8 @@ import { Like } from './like/entities/like.entity';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BullModule } from '@nestjs/bull';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { MessageProducerService } from './message.producer.service';
+import { MessageConsumer } from './message.consumer';
 
 @Module({
   imports: [
@@ -29,6 +31,9 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
         host: process.env.REDIS_HOST,
         port: Number(process.env.REDIS_PORT),
       },
+    }),
+    BullModule.registerQueue({
+      name: 'message-queue',
     }),
     TypeOrmModule.forRoot({
       type: process.env.DB_TYPE as any,
@@ -50,5 +55,6 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     LikeModule,
   ],
   controllers: [AppController],
+  providers: [MessageProducerService, MessageConsumer],
 })
 export class AppModule {}
