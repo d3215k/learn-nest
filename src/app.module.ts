@@ -20,6 +20,8 @@ import { BullModule } from '@nestjs/bull';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { MessageProducerService } from './message.producer.service';
 import { MessageConsumer } from './message.consumer';
+import { FileProducerService } from './file.producer.service';
+import { FileConsumer } from './file.consumer';
 
 @Module({
   imports: [
@@ -32,9 +34,10 @@ import { MessageConsumer } from './message.consumer';
         port: Number(process.env.REDIS_PORT),
       },
     }),
-    BullModule.registerQueue({
-      name: 'message-queue',
-    }),
+    BullModule.registerQueue(
+      { name: 'message-queue' },
+      { name: 'file-operation-queue' },
+    ),
     TypeOrmModule.forRoot({
       type: process.env.DB_TYPE as any,
       host: process.env.DB_HOST,
@@ -55,6 +58,11 @@ import { MessageConsumer } from './message.consumer';
     LikeModule,
   ],
   controllers: [AppController],
-  providers: [MessageProducerService, MessageConsumer],
+  providers: [
+    MessageProducerService,
+    MessageConsumer,
+    FileProducerService,
+    FileConsumer,
+  ],
 })
 export class AppModule {}
