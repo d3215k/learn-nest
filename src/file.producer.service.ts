@@ -7,7 +7,7 @@ export class FileProducerService {
   constructor(@InjectQueue('file-operation-queue') private queue: Queue) {}
 
   async deleteFile(fileName: string) {
-    const filePath = `C:/Users/d3215/OneDrive/Documents/Files/${fileName}`;
+    const filePath = `C:/Users/d3215/Code/learn-nest/storage/${fileName}`;
     // implementh logic delete the file record from database.
     await this.queue.add(
       'delete-file',
